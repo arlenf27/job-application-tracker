@@ -88,10 +88,10 @@
                         		<argument>-fPIC</argument>
                         		<argument>-I${env.JAVA_HOME}/include</argument>
                         		<argument>-I${env.JAVA_HOME}/include/${env.OS_NAME}</argument>
-                        		<argument>src/main/cpp/job_app_regex.cpp</argument>
+                        		<argument>src/main/cpp/jni_interface.cpp</argument>
                         		<argument>-o</argument>
-                        		<argument>target/native/job_app_regex.o</argument>
-                        		<argument>-std=c++98</argument>
+                        		<argument>target/native/jni_interface.o</argument>
+                        		<argument>-std=c++17</argument>
                         	</arguments>
                         	<environmentVariables>
                         		<JAVA_HOME>${env.JAVA_HOME}</JAVA_HOME>
@@ -108,9 +108,9 @@
                         	<executable>g++</executable>
                         	<arguments>
                         		<argument>-dynamiclib</argument>
-                        		<argument>target/native/job_app_regex.o</argument>
+                        		<argument>target/native/jni_interface.o</argument>
                         		<argument>-o</argument>
-                        		<argument>target/native/libjob_app_regex.dylib</argument>
+                        		<argument>target/native/libjni_interface.dylib</argument>
                         	</arguments>
                         	<environmentVariables>
                         		<JAVA_HOME>${env.JAVA_HOME}</JAVA_HOME>

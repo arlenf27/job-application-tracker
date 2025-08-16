@@ -3,7 +3,7 @@ package com.job_app.job_application_tracker.JNI;
 public class JNICPP {
 	
 	static {
-		System.loadLibrary("job_app_regex");
+		System.loadLibrary("jni_interface");
 	}
 	
 	private static native String getTestNativeString(String input);

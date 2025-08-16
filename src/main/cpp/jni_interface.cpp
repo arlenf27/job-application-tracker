@@ -1,6 +1,7 @@
 #include <string>
 #include <cstring>
 #include "com_job_app_job_application_tracker_JNI_JNICPP.h"
+#include "job_app_regex_fields.h"
 
 using namespace std;
 
