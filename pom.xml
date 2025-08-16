@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<my.jdk.home>/Library/Java/JavaVirtualMachines/microsoft-21.jdk/Contents/Home</my.jdk.home>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -63,7 +64,86 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>
+						-Djava.library.path=target/native
+					</jvmArguments>
+				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>compile-native</id>
+						<phase>compile</phase>
+						<goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                        	<executable>g++</executable>
+                        	<arguments>
+                        		<argument>-c</argument>
+                        		<argument>-fPIC</argument>
+                        		<argument>-I${my.jdk.home}/include</argument>
+                        		<argument>-I${my.jdk.home}/include/darwin</argument>
+                        		<argument>src/main/cpp/job_app_regex.cpp</argument>
+                        		<argument>-o</argument>
+                        		<argument>target/native/job_app_regex.o</argument>
+                        		<argument>-std=c++98</argument>
+                        	</arguments>
+                        	<environmentVariables>
+                        		<JAVA_HOME>my.jdk.home</JAVA_HOME>
+                        	</environmentVariables>
+                        </configuration>
+					</execution>
+					<execution>
+						<id>link-native-dylib</id>
+						<phase>compile</phase>
+						<goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                        	<executable>g++</executable>
+                        	<arguments>
+                        		<argument>-dynamiclib</argument>
+                        		<argument>target/native/job_app_regex.o</argument>
+                        		<argument>-o</argument>
+                        		<argument>target/native/libjob_app_regex.dylib</argument>
+                        	</arguments>
+                        	<environmentVariables>
+                        		<JAVA_HOME>my.jdk.home</JAVA_HOME>
+                        	</environmentVariables>
+                        </configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+    			<artifactId>maven-resources-plugin</artifactId>
+    			<executions>
+        			<execution>
+            			<id>copy-native</id>
+            			<phase>process-resources</phase>
+            			<goals>
+                			<goal>copy-resources</goal>
+            			</goals>
+            			<configuration>
+                			<outputDirectory>${project.build.outputDirectory}/native</outputDirectory>
+                			<resources>
+                    			<resource>
+                        			<directory>target/native</directory>
+                        			<includes>
+                            			<include>*.o</include>
+                            			<include>*.dylib</include>
+                        			</includes>
+                    			</resource>
+                			</resources>
+            			</configuration>
+        			</execution>
+    			</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

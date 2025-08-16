@@ -16,6 +16,8 @@ import com.job_app.job_application_tracker.Repositories.GeneralJobApplicationRep
 import com.job_app.job_application_tracker.Repositories.GeneralUserRepository;
 import com.job_app.job_application_tracker.Services.JobApplicationService;
 
+import com.job_app.job_application_tracker.JNI.JNICPP;
+
 @RestController
 public class JobApplicationController {
 	
@@ -47,6 +49,11 @@ public class JobApplicationController {
 	@GetMapping("/test")
 	public String test(@RequestParam(value = "custom_test_value", defaultValue = "default_value") String testValue) {
 		return String.format("Hello, this is a test endpoint with the follwing value: %s", testValue);
+	}
+	
+	@GetMapping("/test_native")
+	public String testNative(@RequestParam(value = "custom_test_input", defaultValue = "default_input") String input) {
+		return String.format("Native test output: %s", JNICPP.getStringFromNative(input));
 	}
 	
 	@GetMapping("/num_apps_all_users")
