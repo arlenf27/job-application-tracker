@@ -8,4 +8,6 @@ public interface User {
 	public void setPassword(String password);
 	public String getEmail();
 	public void setEmail(String email);
+	public boolean isAdmin();
+	public void setIsAdmin(boolean isAdmin);
 }

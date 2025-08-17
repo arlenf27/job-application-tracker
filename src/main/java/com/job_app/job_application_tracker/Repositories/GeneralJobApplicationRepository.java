@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GeneralJobApplicationRepository extends JpaRepository<GeneralJobApplication, Long> {
 	List<GeneralJobApplication> findByUser(GeneralUser user);
-
 }
