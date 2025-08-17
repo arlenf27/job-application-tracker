@@ -37,5 +37,4 @@ Package Manager: Maven
 * Export capabilities (Excel, CSV, etc.)
 
 ### Potential Future Scopes Not Part of this Repository
-* Web/mobile/desktop frontend (React, Android, Java Swing, etc.)m
-		
+* Web/mobile/desktop frontend (React, Android, Java Swing, etc.)
